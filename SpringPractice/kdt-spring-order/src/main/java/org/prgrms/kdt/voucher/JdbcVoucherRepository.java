@@ -1,0 +1,28 @@
+package org.prgrms.kdt.voucher;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
+
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+
+@Repository
+@Qualifier("jdbc")
+public class JdbcVoucherRepository implements VoucherRepository{
+    public final Map<UUID, voucher> storage = new ConcurrentHashMap<>();
+
+
+    @Override
+    public Optional<voucher> findById(UUID voucherId) {
+        return Optional.empty();
+    }
+
+    @Override
+    public voucher insert(voucher voucher) {
+        storage.put(voucher.getVoucherId(),voucher);
+        return voucher;
+    }
+}
